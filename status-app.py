@@ -2,8 +2,8 @@
 
 import time
 
-#from helpers import displayotron
-from helpers import displayotronstub as displayotron
+from helpers import displayotron
+#from lib import displayotronstub as displayotron
 from helpers import trafficlights
 from helpers import vstsprojectdetails
 from helpers import vstspullrequestmonitor
@@ -12,11 +12,11 @@ from helpers import vstsbuildstatusmonitor
 
 class StatusApp:
     def __init__(self):
+        """
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
         print (timestamp + " - starting monitoring")
-        
+        """
         self.colourvalues = trafficlights.Colours()
-
         self.display = displayotron.Display(self.colourvalues)
 
         h2 = vstsprojectdetails.Hub2ProjectDetails()
@@ -93,6 +93,7 @@ class StatusApp:
         """
         failingbuilds = ""
         failingcount = 0
+        partialcount = 0
         colours = self.colourvalues
         summarystatus = colours.GREEN()
 
@@ -112,14 +113,17 @@ class StatusApp:
             elif (status == colours.AMBER() and
                     summarystatus == colours.GREEN()):
                 summarystatus = colours.AMBER()
+                partialcount += 1
         
         if (len(failingbuilds) > 0):
             message = failingbuilds
-        elif (summarystatus == colours.AMBER()):
+        elif (summarystatus == colours.AMBER() 
+            and len(self.buildmonitors) == partialcount):
             message = ' ' * 16 + " Network Error"
+        elif (summarystatus == colours.AMBER()):
+            message = ' ' * 16 + ' ' + str(partialcount) + " Partial "
         else:
-            message = ' ' * 16 + " ALL BUILDS OK"
-
+            message = ' ' * 16 + " All builds OK"
         return summarystatus, message
 
 
@@ -139,25 +143,28 @@ class StatusApp:
                 # if a build has failed we need all 3 lines to show
                 # the failure message - perhaps we should truncate
                 # at 3x16 ?
-                if (summarystatus != colours.GREEN()):
+                if (summarystatus == colours.RED()):
                     displaymessage = buildmessage[:48]
 
                 #self.display.setbarlevel(failingcount / 
                 #                           len(h2.getbuildstowatch()))
                 self.display.setcolour(summarystatus)
                 self.display.settext(displaymessage)
+                """
                 timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
                 print (timestamp + " - " +
                     "message: #" + displaymessage + "# " + summarystatus)
                 print (timestamp + ' - ' + 
                        "message: #" +
                        '1' * 16 + '2' * 16 + '3' * 16)
-                
+                """
                 time.sleep(self.monitorinterval)
 
         except Exception as e:
+            """
             timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
             print (timestamp + " - " + e)
+            """
             pass
 
         finally:

@@ -11,7 +11,14 @@ class Hub2ProjectDetails(object):
         # GenericCorePlatform_Master_CI 25
         # EmvsAdminProxy_Master_CI 49
         # EmvsHubCommon_Master_CI 79
-	    # ISV-Tools-CI 99
+	# ISV-Tools-CI 99
+	#
+	# EmvsAdminProxy_Master_Release 75
+	# GenericCorePlatform_Master_Release 26
+	# EmvsCorePlatform_Master_Release 43
+	# EmvsHubCommon_Master_Release 78
+	# EmvsEuropeanHub_Master_Release 46
+	# GenericTestAutomationCorePlatform_Master_Release 33
         """
         self.APIKEY = ''
         self.TEAMSERVICESACCOUNT = 'solidsoftreply-emvs'
@@ -22,7 +29,7 @@ class Hub2ProjectDetails(object):
                                 "EMVS%20Hub%20Common",
                                 'Emvs%20European%20Hub',
                                 'EMVS%20Administration%20Proxy',
-				                'Emvs%20European%20Hub%20Operations']
+				'Emvs%20European%20Hub%20Operations']
         
         self.REFRESH_INTERVAL_SECONDS = 60
 
