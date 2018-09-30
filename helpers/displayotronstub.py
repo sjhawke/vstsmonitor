@@ -6,7 +6,7 @@ class Display:
         self.colours = colours
 
     def setcolour(self, colour):
-        print(":::set screen colour > " + str(colour))
+        print("::: set screen colour > " + str(colour))
 
     def settext(self, text):
         line = "::: set screen text > " + text
