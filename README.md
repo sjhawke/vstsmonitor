@@ -3,4 +3,4 @@ Python [Raspberry Pi](https://www.raspberrypi.org/products/raspberry-pi-3-model-
 
 Runs on Raspbian Jessie
 
-![Pi in action](IMG_6011.JPG)
+![Pi in action](IMG_6011.PNG)
